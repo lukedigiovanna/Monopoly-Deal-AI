@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Monopoly Deal
+        </title>
+
+        <meta charset="utf-16">
+
+        <link rel="stylesheet" href="styles.css">
+    </head>
+
+    <body>
+        <h1>
+            Monopoly Deal
+        </h1>
+
+        <div id="join-display">
+            <p id="join-failure-message"></p>
+            <input id="username-input" type="text" value="username"> <br> <br>
+            <button id="join-button"> Join </button>
+        </div>
+
+        <div id="waiting-display" style="display: none;">
+            <p id="waiting-for-players">
+                Waiting for players... <span id="player-count">1</span>/5.
+            </p>
+            <button id="start-button" disabled> Start Game </button>
+            <p> Players: </p>
+            <ul id="player-list">
+                
+            </ul>
+        </div>
+
+        <div id="game-display" style="display: inline">
+            <p class="label">
+                Your Cards:
+            </p>
+            <div id="your-hand">
+                <div class="card">
+                    <p class="value value-top-left">
+                        $3
+                    </p>
+                    <p class="value value-top-right">
+                        $3
+                    </p> <br>
+                    <p class="card-type">
+                        ACTION
+                    </p>
+                    <p class="card-title">
+                        DEBT COLLECTOR
+                    </p>
+                    <p class="card-description">
+                        Force any player to pay you $5.
+                    </p>
+
+                    <p class="value value-bottom-left">
+                        $3
+                    </p>
+                    <p class="value value-bottom-right">
+                        $3
+                    </p>
+                </div>
+            </div>
+            <table id="board">
+
+            </table>
+        </div>
+
+        <script src="../socket.io/socket.io.js"> </script>
+        <script src="client.js"> </script>
+    </body>
+</html>
