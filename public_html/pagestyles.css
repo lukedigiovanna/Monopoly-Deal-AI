@@ -27,16 +27,18 @@ p.label {
     text-align: left;
 }
 
+#your-hand {
+    display: flex;
+}
+
 div.card {
-    width: 120px;
-    height: 192px;
+    width: 140px;
+    height: 224px;
     background-color: white;
     border: 3px solid black;
     border-radius: 5px;
-}
-
-p {
-    border: 1px solid black;
+    margin: 10px;
+    text-shadow: 0px 0px 1px lightgray;
 }
 
 .card-type {
@@ -47,23 +49,33 @@ p.value {
     font-weight: bold;
     margin: 2px;
     position: relative;
-    /* display: block; */
-    width: 50%;
+    width: 40%;
 }
 
-.value-top-left {
-    /* right: 45%; */
+
+.value-left {
     float: left;
     text-align: left;
 }
 
-.value-top-right {
-    /* left: 45%; */
+.value-right {
     float: right;
     text-align: right;
 }
 
-.value-bottom-left {
-    bottom: 0%;
-    right: 45%;
+.card-money {
+    font-size: 38px;
+    font-weight: bold;
+}
+
+th {
+    font-size: 24px;
+}
+
+table, tr, th, td {
+    border: 1px solid black;
+}
+
+#board {
+    width: 100%;
 }

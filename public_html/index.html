@@ -7,7 +7,7 @@
 
         <meta charset="utf-16">
 
-        <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="pagestyles.css">
     </head>
 
     <body>
@@ -17,7 +17,7 @@
 
         <div id="join-display">
             <p id="join-failure-message"></p>
-            <input id="username-input" type="text" value="username"> <br> <br>
+            <input id="username-input" type="text" placeholder="username"> <br> <br>
             <button id="join-button"> Join </button>
         </div>
 
@@ -37,37 +37,20 @@
                 Your Cards:
             </p>
             <div id="your-hand">
-                <div class="card">
-                    <p class="value value-top-left">
-                        $3
-                    </p>
-                    <p class="value value-top-right">
-                        $3f
-                    </p> <br>
-                    <p class="card-type">
-                        ACTION
-                    </p>
-                    <p class="card-title">
-                        DEBT COLLECTOR
-                    </p>
-                    <p class="card-description">
-                        Force any player to pay you $5.
-                    </p>
-
-                    <p class="value value-bottom-left">
-                        $3
-                    </p>
-                    <p class="value value-bottom-right">
-                        $3
-                    </p>
-                </div>
+                
             </div>
             <table id="board">
-
+                <tr>
+                    <th style="width: 20%"> Player </th> <th style="width: 50%"> Properties </th> <th style="width: 20%"> Bank </th> <th style="width: 10%"> Net Worth </th>
+                </tr>
+                <tr>
+                    <td> Luke </td>
+                </tr>
             </table>
         </div>
 
         <script src="../socket.io/socket.io.js"> </script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="client.js"> </script>
     </body>
 </html>
