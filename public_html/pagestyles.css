@@ -72,8 +72,25 @@ th {
     font-size: 24px;
 }
 
+td {
+    height: 120px;
+}
+
 table, tr, th, td {
     border: 1px solid black;
+}
+
+.properties {
+    display: flex;
+}
+
+.property {
+    width: 70px;
+    height: 94px;
+    border: 3px solid black;
+    border-radius: 3px;
+    margin: 10px;
+    color: lightgray;
 }
 
 #board {

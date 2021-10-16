@@ -99,6 +99,7 @@ let deck = new Deck();
 app.use(express.static(__dirname + '/public_html'))
 
 let gameStarted = false;
+let turn = 0;
 let players = [];
 
 function deal(player, count) {
@@ -117,13 +118,11 @@ function startGame() {
     // the game is starting.
     io.to("game").emit('start');
     gameStarted = true;
-    setTimeout(() => {
-        // deal out cards to all players
-        players.forEach(player => {
-            deal(player, 5);
-            console.log("dealt to " + player.socket);
-        });
-    }, 3000);
+    // deal out cards to all players
+    players.forEach(player => {
+        deal(player, 5);
+        console.log("dealt to " + player.socket);
+    });
 }
 
 io.on('connection', (socket) => {

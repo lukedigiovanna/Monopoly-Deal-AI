@@ -60,7 +60,6 @@ socket.on('start', () => {
     }, 2000);
 });
 
-
 addCard({value: 4, type: "action", title: "Just Say No.", description: "Cancels any action card played against you."});
 addCard({value: 1, type: "action", title: "Pass Go.", description: "Get two cards."});
 addCard({value: 5, type: "money"});
@@ -68,10 +67,6 @@ addCard({value: 10, type: "money"});
 addCard({value: 4, type: "property", title: "Park Place", colors: "blue"});
 addCard({value: 4, type: "property", title: "Wild Property", colors: "red purple orange green yellow lightgreen brown black lightblue blue"});
 addCard({value: 4, type: "property", title: "Wild Property", colors: "lightgreen black"});
-
-function removeCard(index) {
-
-}
 
 socket.on("players", players => {
     if (!joined) {
@@ -108,6 +103,12 @@ socket.on("player-update", player => {
         addCard(card);
     });
 });
+
+// server sends a list of all updated player data
+// this event should be responsible for updating the display
+socket.on("player-move", players => {
+    
+})
 
 socket.on('disconnect', () => {
     socket.emit('disconnect');
