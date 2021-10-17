@@ -123,6 +123,7 @@ function startGame() {
         deal(player, 5);
         console.log("dealt to " + player.socket);
     });
+    io.emit('player-move', null, 0, 3, players);
 }
 
 io.on('connection', (socket) => {

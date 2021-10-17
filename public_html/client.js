@@ -16,6 +16,7 @@ let socket = io();
 
 // stores if this client has joined the game or not
 let joined = false;
+let username = "";
 
 // define behavior for clicking the join button
 $("#join-button").on('click', () => {
@@ -36,6 +37,7 @@ $("#join-button").on('click', () => {
                 return;
             }
         }
+        username = user;
         socket.emit("join", user);
     }
 });
@@ -106,16 +108,38 @@ socket.on("player-update", player => {
 
 // server sends a list of all updated player data
 // this event should be responsible for updating the display
-socket.on("player-move", players => {
-    
-})
+socket.on("player-move", (card, turn, moves, players) => {
+    if (card != null) {
+
+    }
+    if (players[turn].username == username) {
+        $("#moves").text("It's your turn! You have " + moves + " moves left.");
+    } else {
+        $("#moves").text("It's " + players[turn].username + "'s turn. They have " + moves + " moves left.");
+    }
+    $("#board").html("<tr><th style='width: 20%'> Player </th> <th style='width: 50%'> Properties </th> <th style='width: 20%'> Bank </th> <th style='width: 10%'> Net Worth </th></tr>"); // reset the table
+    for (var i = 0; i < players.length; i++) {
+        let row = document.createElement("tr");
+        if (i == turn) {
+            row.style.backgroundColor = 'aqua';
+        }
+        let name = document.createElement('td');
+        name.innerText = players[i].username;
+        row.appendChild(name);
+        $("#board").append(row);
+    }
+});
 
 socket.on('disconnect', () => {
     socket.emit('disconnect');
 });
 
 function addCard(card) {
-    const handTag = document.getElementById("your-hand");
+    let c = makeCard(card);
+    document.getElementById("your-hand").append(c);
+}
+
+function makeCard(card) {
     let div = document.createElement("div");
     
     div.classList.add('card');
@@ -246,5 +270,5 @@ function addCard(card) {
     div.appendChild(blv);
     div.appendChild(brv);
 
-    handTag.appendChild(div);
+    return div;
 }
