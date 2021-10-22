@@ -110,8 +110,20 @@ socket.on("player-update", player => {
 // this event should be responsible for updating the display
 socket.on("player-move", (card, turn, moves, players) => {
     if (card != null) {
-
-    }
+        console.log(card);
+        if (card == "first") {
+            $('last-played-card').html(""); // clear the card slot
+            // replace it with a card representation of the played card
+            document.getElementById('last-played-card').appendChild(makeCard({type: "money", value: "?"}));
+        }
+        // check if the card is an action card
+        else if (card.type == "action") {
+            // then update the card in the action slot on the screen to reflect that card.
+            $('last-played-card').html(""); // clear the card slot
+            // replace it with a card representation of the played card
+            document.getElementById('last-played-card').appendChild(makeCard(card));
+        } 
+    } 
     if (players[turn].username == username) {
         $("#moves").text("It's your turn! You have " + moves + " moves left.");
     } else {
