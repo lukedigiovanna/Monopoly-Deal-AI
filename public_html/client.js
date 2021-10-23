@@ -70,13 +70,7 @@ addCard({value: 4, type: "property", title: "Park Place", colors: "blue"});
 addCard({value: 4, type: "property", title: "Wild Property", colors: "red purple orange green yellow lightgreen brown black lightblue blue"});
 addCard({value: 4, type: "property", title: "Wild Property", colors: "lightgreen black"});
 
-socket.on("players", players => {
-    if (!joined) {
-        $("#join-display").css('display', 'none');
-        $("#waiting-display").css('display', 'inline');
-        joined = true;
-    }
-
+function updateWaitingDisplay(players) {
     $("#player-count").text(players.length);
     
     if (players.length > 1) {
@@ -96,6 +90,15 @@ socket.on("players", players => {
         }
         list.append(item);
     });
+}
+
+socket.on("players", players => {
+    if (!joined) {
+        $("#join-display").css('display', 'none');
+        $("#waiting-display").css('display', 'inline');
+        joined = true;
+    }
+    updateWaitingDisplay(players);
 });
 
 socket.on("player-update", player => {
@@ -106,6 +109,19 @@ socket.on("player-update", player => {
     });
 });
 
+socket.on('end', (players) => {
+    if (joined) {
+        alert("Someone left the game! Sending you back to the waiting room.");
+        $('#game-display').css('display', 'none');
+        $('#waiting-display').css('display', 'inline');
+        $('button#start-button').prop('disabled', false);
+        $("#waiting-for-players").html("Waiting for players... <span id='player-count'>1</span>/5.");
+        updateWaitingDisplay(players);
+    } else {
+        $("#join-failure-message").text("");
+    }
+});
+
 // server sends a list of all updated player data
 // this event should be responsible for updating the display
 socket.on("player-move", (card, turn, moves, players) => {
@@ -114,7 +130,7 @@ socket.on("player-move", (card, turn, moves, players) => {
         if (card == "first") {
             $('last-played-card').html(""); // clear the card slot
             // replace it with a card representation of the played card
-            document.getElementById('last-played-card').appendChild(makeCard({type: "money", value: "?"}));
+            document.getElementById('last-played-card').appendChild(makeCard({type: "action", value: "?", title: "Nothing!", description: "The last played action card will show up here."}));
         }
         // check if the card is an action card
         else if (card.type == "action") {

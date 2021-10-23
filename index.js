@@ -123,7 +123,21 @@ function startGame() {
         deal(player, 5);
         console.log("dealt to " + player.socket);
     });
-    io.emit('player-move', "first", 0, 3, players);
+    io.to("game").emit('player-move', "first", 0, 3, players);
+}
+
+// sends a message to the clients in the game to 
+function endGame() {
+    console.log('ending active game');
+    io.emit('end', players);
+    gameStarted = false;
+    deck = new Deck();
+    // reset the players info
+    players.forEach(player => {
+        player.hand = [];
+        player.bank = [];
+        player.properties = [];
+    })
 }
 
 io.on('connection', (socket) => {
@@ -178,8 +192,12 @@ io.on('connection', (socket) => {
                 break;
             }
         }
-        if (found)
+        if (found) {
             io.to('game').emit('players', players);
+            if (gameStarted) {
+                endGame(); // when a player disconnects - just end the game.
+            }
+        }
     });
 });
 
